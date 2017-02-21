@@ -1,0 +1,13 @@
+<resources>
+
+    <string name="app_name">EmotionDemo</string>
+
+    <string name="how_do_you_feel">How do you feel?</string>
+
+    <string name="gender">GENDER:</string>
+    <string name="age">AGE:</string>
+    <string name="glasses">GLASSES:</string>
+
+    <string name="percent">%1s%</string>
+
+</resources>
