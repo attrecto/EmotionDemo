@@ -7,7 +7,10 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="semi_transparent_black">#99000000</color>
-    <color name="text_color">#4D4D4D</color>
+    <color name="info_dominant_emotion_text_color">#4D4D4D</color>
+    <color name="info_info_text_color">#333333</color>
+
+    <color name="zero_percent_text_color">#9A9A9A</color>
 
     <color name="divider_color">#BEBEBE</color>
 

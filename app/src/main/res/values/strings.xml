@@ -4,10 +4,66 @@
 
     <string name="how_do_you_feel">How do you feel?</string>
 
-    <string name="gender">GENDER:</string>
-    <string name="age">AGE:</string>
-    <string name="glasses">GLASSES:</string>
 
-    <string name="percent">%1s%</string>
+    <string name="gender">gender:</string>
+    <!-- GENDER ENUM TEXT -->
+    <string name="gender_female">female</string>
+    <string name="gender_male">male</string>
+
+
+    <string name="age">age:</string>
+    <!-- AGE ENUM TEXT -->
+    <string name="age_under_18">under 18</string>
+    <string name="age_18_24">18 – 24</string>
+    <string name="age_25_34">25 – 34</string>
+    <string name="age_35_44">35 – 44</string>
+    <string name="age_45_54">45 – 54</string>
+    <string name="age_55_64">55 – 64</string>
+    <string name="above_65">above 65</string>
+
+
+    <string name="glasses">glasses:</string>
+    <!-- GLASSES ENUM TEXT -->
+    <string name="glasses_no">no</string>
+    <string name="glasses_yes">yes</string>
+
+    <string name="percent">%1s%%</string>
+
+    <string name="no_face">no face</string>
+
+    <!-- EMOTIONS -->
+    <string name="emotion">emotion</string>
+    <string name="anger">anger</string>
+    <string name="contempt">contempt</string>
+    <string name="disgust">disgust</string>
+    <string name="fear">fear</string>
+    <string name="joy">joy</string>
+    <string name="sadness">sadness</string>
+    <string name="surprise">surprise</string>
+
+    <string-array name="emotions">
+        <item>@string/anger</item>
+        <item>@string/contempt</item>
+        <item>@string/disgust</item>
+        <item>@string/fear</item>
+        <item>@string/joy</item>
+        <item>@string/sadness</item>
+        <item>@string/surprise</item>
+    </string-array>
+
+
+    <string name="unknown">unknown</string>
+
+
+    <string name="alert">Alert</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">cancel</string>
+
+
+    <!-- PERMISSIONS -->
+
+    <string name="permissions_camera_explanation">This app requires the permission to access your camera to be able to gather facial images for processing. No video is saved or used other than for immediate emotion processing.</string>
+    <string name="permissions_storage_explanation">This app requires the permission to access your external storage to save screenshots.</string>
+    <string name="permissions_internet_explanation">This app requires the permission to acces internet to send anonymous data</string>
 
 </resources>

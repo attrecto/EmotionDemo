@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/info_container_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="@android:color/transparent"
+    tools:background="@android:color/black">
+
+    <LinearLayout
+        android:id="@+id/info_container_main_info"
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:layout_marginTop="28dp"
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="12dp"
+        android:paddingLeft="6dp"
+        android:paddingRight="6dp"
+        android:paddingTop="12dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:paddingRight="36dp">
+
+            <com.android.attrecto.emotiondemo.ui.widget.RobotoLightTextView
+                android:id="@+id/dominant_emotion_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:gravity="left"
+                android:lines="1"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/colorPrimary"
+                tools:text="100%" />
+
+            <View
+                android:id="@+id/dominant_emotion_divider"
+                android:layout_width="6dp"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@id/dominant_emotion_percent" />
+
+            <com.android.attrecto.emotiondemo.ui.widget.RobotoLightTextView
+                android:id="@+id/dominant_emotion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/dominant_emotion_divider"
+                android:gravity="right"
+                android:lines="1"
+                android:textAllCaps="true"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/info_dominant_emotion_text_color"
+                tools:text="joy" />
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/divider_color" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingLeft="36dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="top"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <com.android.attrecto.emotiondemo.ui.widget.RobotoLightTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/gender"
+                    android:textAllCaps="true"
+                    android:textColor="@color/info_info_text_color" />
+
+                <com.android.attrecto.emotiondemo.ui.widget.RobotoLightTextView
+                    android:id="@+id/gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="4dp"
+                    android:textAllCaps="true"
+                    android:textColor="@color/pink"
+                    tools:text="female" />
+
+                <android.support.v4.widget.ContentLoadingProgressBar
+                    android:id="@+id/info_gender_pb"
+                    style="@style/indeterminateProgressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <com.android.attrecto.emotiondemo.ui.widget.RobotoLightTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/age"
+                    android:textAllCaps="true"
+                    android:textColor="@color/info_info_text_color" />
+
+                <com.android.attrecto.emotiondemo.ui.widget.RobotoLightTextView
+                    android:id="@+id/age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="4dp"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimary"
+                    tools:text="27" />
+
+                <android.support.v4.widget.ContentLoadingProgressBar
+                    android:id="@+id/info_age_pb"
+                    style="@style/indeterminateProgressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <com.android.attrecto.emotiondemo.ui.widget.RobotoLightTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/glasses"
+                    android:textAllCaps="true"
+                    android:textColor="@color/info_info_text_color" />
+
+                <com.android.attrecto.emotiondemo.ui.widget.RobotoLightTextView
+                    android:id="@+id/glasses"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="4dp"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimary"
+                    tools:text="no" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/expand_emotions_button"
+        style="@style/floatingActionButton"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/pink"
+        android:src="@drawable/expand_more_white_36"
+
+    />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/info_container_main_info"
+        android:background="@android:color/transparent">
+
+        <View
+            android:id="@+id/detail_emotion_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white" />
+
+        <include
+            android:id="@+id/info_container_detail_container"
+            layout="@layout/detailed_emotions" />
+
+    </FrameLayout>
+
+
+</RelativeLayout>
