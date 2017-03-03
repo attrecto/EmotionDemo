@@ -63,7 +63,7 @@ public class CameraDetectorManager implements Detector.ImageListener, Detector.F
         mIsFrontFacingCameraDetected = ApplicationObejct.appContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT);
         mIsBackFacingCameraDetected = ApplicationObejct.appContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
 
-        mCurrentCameraType = PreferencesManager.getInstance().getBoolean(PREFERENCES_CAMERA_BACK, true) ? CameraDetector.CameraType.CAMERA_BACK : CameraDetector.CameraType.CAMERA_FRONT;
+        mCurrentCameraType = PreferencesManager.getInstance().getBoolean(PREFERENCES_CAMERA_BACK, false) ? CameraDetector.CameraType.CAMERA_BACK : CameraDetector.CameraType.CAMERA_FRONT;
 
         mCameraDetectorInstance = new CameraDetector(context, mCurrentCameraType, cameraPreviewView, 1, Detector.FaceDetectorMode.LARGE_FACES);
 
@@ -177,8 +177,6 @@ public class CameraDetectorManager implements Detector.ImageListener, Detector.F
     }
 
     private void sendFaceDetectionToAllListeners(boolean detected) {
-
-        Log.d("CameraDetectorManager", "detection " + (detected ? "started" : "stopped"));
 
         if (detected) {
             for (Detector.FaceListener l : mFaceListeners) {

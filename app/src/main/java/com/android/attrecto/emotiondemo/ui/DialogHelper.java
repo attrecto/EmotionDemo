@@ -1,12 +1,10 @@
 package com.android.attrecto.emotiondemo.ui;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 
-import com.android.attrecto.emotiondemo.ApplicationObejct;
 import com.android.attrecto.emotiondemo.R;
 
 /**
@@ -15,50 +13,31 @@ import com.android.attrecto.emotiondemo.R;
 
 public class DialogHelper {
 
-    public static void showAlertDialog(Context c, String msg) {
+    public static void showAlertDialog(Context c, @StringRes int msg, DialogInterface.OnDismissListener l) {
 
         new AlertDialog.Builder(c)
-                .setTitle(R.string.alert)
                 .setMessage(msg)
                 .setPositiveButton(R.string.ok, null)
+                .setOnDismissListener(l)
                 .show();
 
     }
 
-    private static void showPermissionRequest(final Activity a, @StringRes int msg) {
+    public static void showAlertDialog(Context c, @StringRes int title, @StringRes int msg, DialogInterface.OnDismissListener l) {
 
-        new AlertDialog.Builder(a)
+        new AlertDialog.Builder(c)
+                .setTitle(title)
                 .setMessage(msg)
-                .setCancelable(false)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int id) {
-
-                        dialog.dismiss();
-
-                        a.finish();
-
-                    }
-                })
+                .setPositiveButton(R.string.ok, null)
+                .setOnDismissListener(l)
                 .show();
-    }
-
-    public static void showCameraPermissionRequest(Activity a) {
-
-        showPermissionRequest(a, R.string.permissions_camera_explanation);
 
     }
 
-    public static void showExternalStoragePermissionRequest(Activity a) {
+    public static void showAppInfo(Context c) {
 
-        showPermissionRequest(a, R.string.permissions_storage_explanation);
-
-    }
-
-    public static void showInternetAccessPermissionRequest(Activity a) {
-
-        showPermissionRequest(a, R.string.permissions_internet_explanation);
-
+        new AlertDialog.Builder(c)
+                .show();
     }
 
 }

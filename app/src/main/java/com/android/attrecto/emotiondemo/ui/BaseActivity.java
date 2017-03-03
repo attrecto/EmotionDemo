@@ -5,6 +5,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 
 
 /**
@@ -22,6 +23,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         rootView = getLayoutInflater().inflate(getLayoutResId(), null);
 
+        // keeps screen turned on
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
         setContentView(rootView);
 
         acquireReferences();
@@ -29,8 +33,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         setListeners();
 
         onAfterAll();
-
-
     }
 
     @LayoutRes
@@ -43,6 +45,5 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected abstract void onAfterAll();
-
 
 }

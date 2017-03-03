@@ -179,7 +179,7 @@
         style="@style/floatingActionButton"
         android:layout_centerHorizontal="true"
         android:backgroundTint="@color/pink"
-        android:src="@drawable/expand_more_white_36"
+        android:src="@drawable/expand_white_36"
 
     />
 
@@ -197,7 +197,7 @@
 
         <include
             android:id="@+id/info_container_detail_container"
-            layout="@layout/detailed_emotions" />
+            layout="@layout/content_detailed_emotions" />
 
     </FrameLayout>
 

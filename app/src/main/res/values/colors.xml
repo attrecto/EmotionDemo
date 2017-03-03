@@ -4,7 +4,7 @@
 
     <color name="colorPrimary">#137A8B</color>
     <color name="colorPrimaryDark">#106270</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#137A8B</color>
 
     <color name="semi_transparent_black">#99000000</color>
     <color name="info_dominant_emotion_text_color">#4D4D4D</color>

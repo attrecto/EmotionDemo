@@ -227,10 +227,6 @@ public class FaceDrawerView extends View implements Detector.ImageListener, Dete
 
             screenToImageWidthRatio = (float) viewWidth / imageWidth;
             screenToImageHeightRatio = (float) viewHeight / imageHeight;
-
-            Log.d("FaceDrawerView", "imgW:" + imageWidth + ", windowW:" + viewWidth + ", ratio:" + screenToImageWidthRatio);
-            Log.d("FaceDrawerView", "imgH:" + imageHeight + ", windowH:" + viewHeight + ", ratio:" + screenToImageHeightRatio);
-
         }
 
     }

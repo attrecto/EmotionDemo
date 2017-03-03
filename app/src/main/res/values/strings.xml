@@ -59,11 +59,42 @@
     <string name="ok">Ok</string>
     <string name="cancel">cancel</string>
 
+    <string name="emoji_info">Here are all the expressions the app can recognize. Try them all.
+    </string>
+
+    <string name="disappointed">Disappointed</string>
+    <string name="flushed">Flushed</string>
+    <string name="kissing">Kissing</string>
+    <string name="laughing">Laughing</string>
+    <string name="rage">Rage</string>
+    <string name="relaxed">Relaxed</string>
+    <string name="scream">Scream</string>
+    <string name="smiley">Smiley</string>
+    <string name="smirk">Smirk</string>
+    <string name="stuck_out_tongue_winking_eye">Stuck out tongue with winking eye</string>
+    <string name="stuck_out_tongue">Stuck out tongue</string>
+    <string name="wink">Wink</string>
+
+    <string-array name="emojis">
+        <item>@string/disappointed</item>
+        <item>@string/flushed</item>
+        <item>@string/kissing</item>
+        <item>@string/laughing</item>
+        <item>@string/rage</item>
+        <item>@string/relaxed</item>
+        <item>@string/scream</item>
+        <item>@string/smiley</item>
+        <item>@string/smirk</item>
+        <item>@string/stuck_out_tongue_winking_eye</item>
+        <item>@string/stuck_out_tongue</item>
+        <item>@string/wink</item>
+    </string-array>
+
 
     <!-- PERMISSIONS -->
 
-    <string name="permissions_camera_explanation">This app requires the permission to access your camera to be able to gather facial images for processing. No video is saved or used other than for immediate emotion processing.</string>
-    <string name="permissions_storage_explanation">This app requires the permission to access your external storage to save screenshots.</string>
-    <string name="permissions_internet_explanation">This app requires the permission to acces internet to send anonymous data</string>
-
+    <string name="permissions_camera_explanation">This app requires the permission to access your
+        camera to be able to gather facial images for processing. No video is saved or used other
+        than for immediate emotion processing. The app is terminating.
+    </string>
 </resources>

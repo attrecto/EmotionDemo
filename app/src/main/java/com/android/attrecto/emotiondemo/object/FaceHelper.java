@@ -1,8 +1,5 @@
 package com.android.attrecto.emotiondemo.object;
 
-import android.support.annotation.StringRes;
-import android.util.Log;
-
 import com.affectiva.android.affdex.sdk.detector.Face;
 import com.android.attrecto.emotiondemo.ApplicationObejct;
 import com.android.attrecto.emotiondemo.R;

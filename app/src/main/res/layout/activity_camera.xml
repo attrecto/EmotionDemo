@@ -20,7 +20,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:background="@color/colorPrimary">
+            android:background="@color/colorPrimary"
+            android:elevation="4dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -30,7 +33,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:src="@drawable/camera_white_36" />
+                    android:src="@drawable/attrecto_logo_white" />
 
                 <com.android.attrecto.emotiondemo.ui.widget.RobotoLightTextView
                     android:layout_width="wrap_content"
@@ -39,6 +42,14 @@
                     android:text="@string/how_do_you_feel"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@android:color/white" />
+
+                <ImageView
+                    android:id="@+id/emoji_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/info_outline_white_36" />
 
 
             </RelativeLayout>
@@ -58,25 +69,30 @@
             android:layout_below="@id/camera_toolbar"
             android:background="@android:color/transparent" />
 
+
+        <View
+            android:id="@+id/cover_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/camera_toolbar"
+            android:alpha="0"
+            android:background="@color/semi_transparent_black" />
+
         <ImageView
             android:id="@+id/swap_camera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@id/camera_toolbar"
-            android:layout_margin="8dp"
+            android:layout_margin="12dp"
             android:background="@drawable/circle_primary"
             android:clickable="true"
-            android:padding="8dp"
+            android:elevation="4dp"
+            android:padding="10dp"
             tools:src="@drawable/camera_white_36" />
 
     </RelativeLayout>
 
-    <View
-        android:id="@+id/cover_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/semi_transparent_black" />
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/pull_up_view"

@@ -32,6 +32,7 @@ public class CameraActivity extends BaseActivity implements Detector.ImageListen
     private TextView mAge;
     private TextView mGlasses;
     private ImageView mCameraSwap;
+    private ImageView mEmojiInfo;
 
     private View mPullUpContainer;
     private LinearLayout mMainInfoContainer;
@@ -52,8 +53,6 @@ public class CameraActivity extends BaseActivity implements Detector.ImageListen
 
     private boolean mCameraDetectorInitialized = false;
 
-    private boolean mIsFaceDetected = false;
-
 
     @Override
     protected int getLayoutResId() {
@@ -71,6 +70,7 @@ public class CameraActivity extends BaseActivity implements Detector.ImageListen
         mCollapse = (FloatingActionButton) findViewById(R.id.close_dialog_btn);
         mCoverView = findViewById(R.id.cover_view);
         mDetailEmotionBackground = findViewById(R.id.detail_emotion_background);
+        mEmojiInfo = (ImageView) findViewById(R.id.emoji_info);
 
         mDetailDominantEmotion = (TextView) findViewById(R.id.detail_dominant_emotion_name);
         mDetailDominantEmotionPercent = (TextView) findViewById(R.id.detail_dominant_emotion_percent);
@@ -109,12 +109,19 @@ public class CameraActivity extends BaseActivity implements Detector.ImageListen
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
 
+
+                // had to implement here,
+                // if setHideable(false) is implemented in onFaceDetectionStopped() the state switches to EXPANDED state before switching to COLLAPSED state.
+                if (newState == BottomSheetBehavior.STATE_COLLAPSED)
+                    mInfoContainerBehavior.setHideable(false);
+
             }
 
             @Override
             public void onSlide(@NonNull View bottomSheet, final float slideOffset) {
 
-                setPullUpContainerAlpha(1f - slideOffset);
+                if (mInfoContainerBehavior.getState() != BottomSheetBehavior.STATE_HIDDEN)
+                    setPullUpContainerAlpha(1f - slideOffset);
             }
         });
 
@@ -123,8 +130,7 @@ public class CameraActivity extends BaseActivity implements Detector.ImageListen
             @Override
             public void onClick(View view) {
 
-                if (mIsFaceDetected)
-                    mInfoContainerBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                mInfoContainerBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
             }
         });
 
@@ -137,32 +143,37 @@ public class CameraActivity extends BaseActivity implements Detector.ImageListen
             }
         });
 
-
         mCameraSwap.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
 
                 CameraDetectorManager.getInstance().swapCamera();
-
                 setCameraSwapImage();
+                onFaceDetectionStopped();
+            }
+        });
 
-                removeInfo();
+        mEmojiInfo.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View view) {
+
+                new EmojiInfoDialog(CameraActivity.this)
+                        .show();
             }
         });
 
     }
 
-
     @Override
     protected void onAfterAll() {
 
         mInfoContainerBehavior.setHideable(true);
-        mInfoContainerBehavior.setPeekHeight(DimensionHelper.dpToPx(106));
         mInfoContainerBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        mInfoContainerBehavior.setPeekHeight(DimensionHelper.dpToPx(106));
 
-        mCoverView.setAlpha(0f);
+        setPullUpContainerAlpha(1f);
 
         mGenderPb.hide();
         mAgePb.hide();
@@ -172,7 +183,17 @@ public class CameraActivity extends BaseActivity implements Detector.ImageListen
         addCameraDetectorListeners();
 
         removeInfo();
+    }
 
+    @Override
+    public void onBackPressed() {
+
+        if (mInfoContainerBehavior.getState() == BottomSheetBehavior.STATE_HIDDEN ||
+                mInfoContainerBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED)
+            super.onBackPressed();
+
+        else
+            mInfoContainerBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
     }
 
     @Override
@@ -184,11 +205,9 @@ public class CameraActivity extends BaseActivity implements Detector.ImageListen
 
         if (mCameraDetectorInitialized) {
 
-            initCameraDetector();
+            CameraDetectorManager.getInstance().startDetecting();
             addCameraDetectorListeners();
         }
-
-        // mFaceDrawerView.invalidate();
     }
 
     @Override
@@ -217,7 +236,9 @@ public class CameraActivity extends BaseActivity implements Detector.ImageListen
         mMainInfoContainer.setAlpha(alpha);
         mExpand.setAlpha(alpha);
         mCoverView.setAlpha(1f - alpha);
-        mCameraSwap.setAlpha(alpha);
+
+        if (mCameraSwap.isEnabled())
+            mCameraSwap.setAlpha(alpha);
     }
 
     private void setCameraSwapImage() {
@@ -416,6 +437,7 @@ public class CameraActivity extends BaseActivity implements Detector.ImageListen
         mFaceDrawerView.invalidate();
     }
 
+
     @Override
     public void onImageResults(List<Face> list, Frame frame, float v) {
 
@@ -435,7 +457,6 @@ public class CameraActivity extends BaseActivity implements Detector.ImageListen
     @Override
     public void onFaceDetectionStarted() {
 
-        mIsFaceDetected = true;
         mInfoContainerBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
 
         runOnUiThread(new Runnable() {
@@ -453,8 +474,9 @@ public class CameraActivity extends BaseActivity implements Detector.ImageListen
     @Override
     public void onFaceDetectionStopped() {
 
-        mIsFaceDetected = false;
+        mInfoContainerBehavior.setHideable(true);
         mInfoContainerBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+
 
         runOnUiThread(new Runnable() {
 

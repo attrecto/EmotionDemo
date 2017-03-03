@@ -5,7 +5,17 @@
     android:id="@+id/activity_splash"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
+    android:background="@color/colorPrimary"
     tools:context="com.android.attrecto.emotiondemo.ui.SplashActivity">
+
+    <ImageView
+        android:id="@+id/splash_image"
+        android:src="@drawable/splash"
+        android:scaleType="fitStart"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:adjustViewBounds="true"
+        android:layout_height="wrap_content"
+    />
 
 </RelativeLayout>
