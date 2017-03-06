@@ -13,7 +13,7 @@ import com.android.attrecto.emotiondemo.object.EmojiAdapter;
  * Created by Somogyi Bence on 2017.03.03..
  */
 
-public class EmojiInfoDialog extends BaseCustomDialog {
+public class EmojiInfoDialog extends BaseCustomDialog implements View.OnClickListener {
 
     RecyclerView mList;
 
@@ -39,31 +39,26 @@ public class EmojiInfoDialog extends BaseCustomDialog {
     @Override
     protected void setListeners() {
 
-        rootView.setOnClickListener(new View.OnClickListener() {
+        rootView.setOnClickListener(this);
 
-            @Override
-            public void onClick(View view) {
+        mList.setOnClickListener(this);
 
-                dismiss();
-            }
-        });
-
-        mList.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-
-                dismiss();
-            }
-        });
     }
 
     @Override
     protected void onAfterAll() {
 
+        setCancelable(true);
+
         mList.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mList.setAdapter(new EmojiAdapter());
+        mList.setAdapter(new EmojiAdapter(this));
 
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        dismiss();
     }
 }

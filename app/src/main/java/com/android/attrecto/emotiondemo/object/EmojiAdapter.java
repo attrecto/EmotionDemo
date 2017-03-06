@@ -1,6 +1,7 @@
 package com.android.attrecto.emotiondemo.object;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,15 +19,18 @@ public class EmojiAdapter extends RecyclerView.Adapter<EmojiAdapter.EmojiViewHol
 
     private int[] emojiImages;
     private String[] emojiNames;
+    private View.OnClickListener mOnClickListener;
 
     private int count;
 
-    public EmojiAdapter() {
+    public EmojiAdapter(View.OnClickListener l) {
 
         emojiImages = EmojiHelper.getAllEmojiRes();
         emojiNames = EmojiHelper.getAllEmojiNames();
 
         count = emojiImages.length;
+
+        mOnClickListener = l;
 
     }
 
@@ -35,7 +39,7 @@ public class EmojiAdapter extends RecyclerView.Adapter<EmojiAdapter.EmojiViewHol
 
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_emoji, null);
 
-        EmojiViewHolder evh = new EmojiViewHolder(itemView);
+        EmojiViewHolder evh = new EmojiViewHolder(itemView, mOnClickListener);
 
         return evh;
     }
@@ -61,13 +65,16 @@ public class EmojiAdapter extends RecyclerView.Adapter<EmojiAdapter.EmojiViewHol
         RobotoLightTextView emojiName;
 
 
-        public EmojiViewHolder(View itemView) {
+        public EmojiViewHolder(View itemView, View.OnClickListener l) {
 
             super(itemView);
 
             emojiImage = (ImageView) itemView.findViewById(R.id.emoji_img);
             emojiName = (RobotoLightTextView) itemView.findViewById(R.id.emoji_name);
+
+            itemView.setOnClickListener(l);
         }
+
     }
 
 }

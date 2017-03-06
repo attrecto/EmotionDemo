@@ -100,12 +100,6 @@
                     android:textColor="@color/pink"
                     tools:text="female" />
 
-                <android.support.v4.widget.ContentLoadingProgressBar
-                    android:id="@+id/info_gender_pb"
-                    style="@style/indeterminateProgressBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
 
             </LinearLayout>
 
@@ -133,12 +127,6 @@
                     android:textAllCaps="true"
                     android:textColor="@color/colorPrimary"
                     tools:text="27" />
-
-                <android.support.v4.widget.ContentLoadingProgressBar
-                    android:id="@+id/info_age_pb"
-                    style="@style/indeterminateProgressBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 

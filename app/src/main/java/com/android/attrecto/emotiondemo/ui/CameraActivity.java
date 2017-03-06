@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.widget.ContentLoadingProgressBar;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageView;
@@ -34,7 +33,6 @@ public class CameraActivity extends BaseActivity implements Detector.ImageListen
     private ImageView mCameraSwap;
     private ImageView mEmojiInfo;
 
-    private View mPullUpContainer;
     private LinearLayout mMainInfoContainer;
     private FloatingActionButton mExpand;
     private FloatingActionButton mCollapse;
@@ -45,13 +43,8 @@ public class CameraActivity extends BaseActivity implements Detector.ImageListen
     private View mCoverView;
     private BottomSheetBehavior mInfoContainerBehavior;
 
-    private ContentLoadingProgressBar mGenderPb;
-    private ContentLoadingProgressBar mAgePb;
-
     private SurfaceView mCameraView;
     private FaceDrawerView mFaceDrawerView;
-
-    private boolean mCameraDetectorInitialized = false;
 
 
     @Override
@@ -63,8 +56,7 @@ public class CameraActivity extends BaseActivity implements Detector.ImageListen
     @Override
     protected void acquireReferences() {
 
-        mPullUpContainer = findViewById(R.id.pull_up_view);
-        mInfoContainerBehavior = BottomSheetBehavior.from(mPullUpContainer);
+        mInfoContainerBehavior = BottomSheetBehavior.from(findViewById(R.id.pull_up_view));
         mMainInfoContainer = (LinearLayout) findViewById(R.id.info_container_main_info);
         mExpand = (FloatingActionButton) findViewById(R.id.expand_emotions_button);
         mCollapse = (FloatingActionButton) findViewById(R.id.close_dialog_btn);
@@ -93,9 +85,6 @@ public class CameraActivity extends BaseActivity implements Detector.ImageListen
         mGlasses = (TextView) findViewById(R.id.glasses);
         mCameraSwap = (ImageView) findViewById(R.id.swap_camera);
 
-        mGenderPb = (ContentLoadingProgressBar) findViewById(R.id.info_gender_pb);
-        mAgePb = (ContentLoadingProgressBar) findViewById(R.id.info_age_pb);
-
         mCameraView = (SurfaceView) findViewById(R.id.camera_view);
         mFaceDrawerView = (FaceDrawerView) findViewById(R.id.face_drawer_view);
 
@@ -108,7 +97,6 @@ public class CameraActivity extends BaseActivity implements Detector.ImageListen
 
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
-
 
                 // had to implement here,
                 // if setHideable(false) is implemented in onFaceDetectionStopped() the state switches to EXPANDED state before switching to COLLAPSED state.
@@ -175,9 +163,6 @@ public class CameraActivity extends BaseActivity implements Detector.ImageListen
 
         setPullUpContainerAlpha(1f);
 
-        mGenderPb.hide();
-        mAgePb.hide();
-
         initCameraDetector();
 
         addCameraDetectorListeners();
@@ -203,15 +188,15 @@ public class CameraActivity extends BaseActivity implements Detector.ImageListen
 
         removeInfo();
 
-        if (mCameraDetectorInitialized) {
-
-            CameraDetectorManager.getInstance().startDetecting();
-            addCameraDetectorListeners();
-        }
+        CameraDetectorManager.getInstance().startDetecting();
+        onFaceDetectionStopped();
+        addCameraDetectorListeners();
     }
 
     @Override
     protected void onPause() {
+
+        mFaceDrawerView.erasePoints();
 
         removeCameraDetectorListeners();
 
@@ -260,9 +245,6 @@ public class CameraActivity extends BaseActivity implements Detector.ImageListen
     private void initCameraDetector() {
 
         CameraDetectorManager.init(CameraActivity.this, mCameraView);
-        CameraDetectorManager.getInstance().startDetecting();
-
-        mCameraDetectorInitialized = true;
 
         setCameraSwapImage();
 
@@ -318,13 +300,11 @@ public class CameraActivity extends BaseActivity implements Detector.ImageListen
 
             case FEMALE:
 
-                mGenderPb.hide();
                 mGender.setText(R.string.gender_female);
                 break;
 
             case MALE:
 
-                mGenderPb.hide();
                 mGender.setText(R.string.gender_male);
                 break;
 
@@ -347,43 +327,36 @@ public class CameraActivity extends BaseActivity implements Detector.ImageListen
 
             case AGE_UNDER_18:
 
-                mAgePb.hide();
                 mAge.setText(R.string.age_under_18);
                 break;
 
             case AGE_18_24:
 
-                mAgePb.hide();
                 mAge.setText(R.string.age_18_24);
                 break;
 
             case AGE_25_34:
 
-                mAgePb.hide();
                 mAge.setText(R.string.age_25_34);
                 break;
 
             case AGE_35_44:
 
-                mAgePb.hide();
                 mAge.setText(R.string.age_35_44);
                 break;
 
             case AGE_45_54:
 
-                mAgePb.hide();
                 mAge.setText(R.string.age_45_54);
                 break;
 
             case AGE_55_64:
 
-                mAgePb.hide();
                 mAge.setText(R.string.age_55_64);
                 break;
 
             case AGE_65_PLUS:
 
-                mAgePb.hide();
                 mAge.setText(R.string.above_65);
                 break;
 
@@ -419,7 +392,7 @@ public class CameraActivity extends BaseActivity implements Detector.ImageListen
         mAge.setText("-");
         mGlasses.setText("-");
 
-        mDominantEmotion.setText(R.string.no_face); // R.string.emotion
+        mDominantEmotion.setText(R.string.no_face);
         mDominantEmotionPercent.setText("");
 
         mDetailDominantEmotion.setText("");
@@ -430,9 +403,6 @@ public class CameraActivity extends BaseActivity implements Detector.ImageListen
             t.setTextColor(getResources().getColor(R.color.zero_percent_text_color));
             t.setText("0%");
         }
-
-        mGenderPb.hide();
-        mAgePb.hide();
 
         mFaceDrawerView.invalidate();
     }
@@ -459,16 +429,6 @@ public class CameraActivity extends BaseActivity implements Detector.ImageListen
 
         mInfoContainerBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
 
-        runOnUiThread(new Runnable() {
-
-            @Override
-            public void run() {
-
-                mGenderPb.show();
-                mAgePb.show();
-            }
-        });
-
     }
 
     @Override
@@ -476,7 +436,6 @@ public class CameraActivity extends BaseActivity implements Detector.ImageListen
 
         mInfoContainerBehavior.setHideable(true);
         mInfoContainerBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-
 
         runOnUiThread(new Runnable() {
 

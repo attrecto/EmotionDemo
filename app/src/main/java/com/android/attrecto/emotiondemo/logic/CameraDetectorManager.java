@@ -63,7 +63,19 @@ public class CameraDetectorManager implements Detector.ImageListener, Detector.F
         mIsFrontFacingCameraDetected = ApplicationObejct.appContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT);
         mIsBackFacingCameraDetected = ApplicationObejct.appContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
 
-        mCurrentCameraType = PreferencesManager.getInstance().getBoolean(PREFERENCES_CAMERA_BACK, false) ? CameraDetector.CameraType.CAMERA_BACK : CameraDetector.CameraType.CAMERA_FRONT;
+        if (mIsFrontFacingCameraDetected && mIsBackFacingCameraDetected) {
+
+            mCurrentCameraType = PreferencesManager.getInstance().getBoolean(PREFERENCES_CAMERA_BACK, false) ? CameraDetector.CameraType.CAMERA_BACK : CameraDetector.CameraType.CAMERA_FRONT;
+        }
+        else {
+            if (mIsBackFacingCameraDetected)
+                mCurrentCameraType = CameraDetector.CameraType.CAMERA_BACK;
+
+            if (mIsFrontFacingCameraDetected)
+                mCurrentCameraType = CameraDetector.CameraType.CAMERA_FRONT;
+
+
+        }
 
         mCameraDetectorInstance = new CameraDetector(context, mCurrentCameraType, cameraPreviewView, 1, Detector.FaceDetectorMode.LARGE_FACES);
 
@@ -204,10 +216,9 @@ public class CameraDetectorManager implements Detector.ImageListener, Detector.F
     }
 
     /**
-     *
-     * @param list list of faces
+     * @param list  list of faces
      * @param frame
-     * @param v timestamp
+     * @param v     timestamp
      */
     @Override
     public void onImageResults(List<Face> list, Frame frame, float v) {
@@ -234,9 +245,8 @@ public class CameraDetectorManager implements Detector.ImageListener, Detector.F
     }
 
     /**
-     *
-     * @param i cameraWidth
-     * @param i1 cameraHeight
+     * @param i      cameraWidth
+     * @param i1     cameraHeight
      * @param rotate
      */
     @Override

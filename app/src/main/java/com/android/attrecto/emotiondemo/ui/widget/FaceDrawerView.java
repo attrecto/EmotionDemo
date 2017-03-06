@@ -10,7 +10,6 @@ import android.graphics.PointF;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -115,6 +114,18 @@ public class FaceDrawerView extends View implements Detector.ImageListener, Dete
         CameraDetectorManager.getInstance().removeImageListener(this);
         CameraDetectorManager.getInstance().removeFaceListener(this);
         CameraDetectorManager.getInstance().removeCameraEventListener(this);
+
+    }
+
+    @Override
+    public void onFaceDetectionStarted() {
+
+    }
+
+    @Override
+    public void onFaceDetectionStopped() {
+
+        erasePoints();
 
     }
 
@@ -231,6 +242,21 @@ public class FaceDrawerView extends View implements Detector.ImageListener, Dete
 
     }
 
+    public void erasePoints() {
+
+        mFaceAttributes.shouldDraw = false;
+
+        post(new Runnable() {
+
+            @Override
+            public void run() {
+
+                invalidate();
+            }
+        });
+
+    }
+
 
     @Override
     public void onImageResults(List<Face> list, Frame frame, float v) {
@@ -251,27 +277,6 @@ public class FaceDrawerView extends View implements Detector.ImageListener, Dete
 
     }
 
-
-    @Override
-    public void onFaceDetectionStarted() {
-
-    }
-
-    @Override
-    public void onFaceDetectionStopped() {
-
-        mFaceAttributes.shouldDraw = false;
-
-        post(new Runnable() {
-
-            @Override
-            public void run() {
-
-                invalidate();
-            }
-        });
-
-    }
 
     @Override
     public void onCameraSizeSelected(int i, int i1, Frame.ROTATE rotate) {
